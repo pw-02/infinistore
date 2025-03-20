@@ -167,8 +167,8 @@ func createFunction(name string, svc *lambda.Lambda) {
 		Handler:      aws.String(options.LambdaKey),
 		MemorySize:   aws.Int64(options.MemorySize),
 		Role:         aws.String(options.Role),
-		Runtime:      aws.String("go1.x"),
-		//Runtime: aws.String("provided.al2023"),
+		//Runtime:      aws.String("go1.x"),
+		Runtime: aws.String("provided.al2023"),
 
 		Timeout:   aws.Int64(options.Timeout),
 		VpcConfig: vpcConfig,
