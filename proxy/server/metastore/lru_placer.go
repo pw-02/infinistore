@@ -167,12 +167,12 @@ func (p *LRUPlacer) MetaStats() types.MetaStoreStats {
 }
 
 // NewMeta will remap idx according to following logic:
-// 0. If an LRU relocation is present, remap according to "chunk" in relocation array.
-// 1. Base on the size of slice, remap to a instance in the group.
-// 2. If target instance is full, request an LRU relocation and restart from 0.
-// 3. If no Balancer relocation is available, request one.
-// 4. Remap to smaller "Size" of instance between target instance and remapped instance according to "chunk" in
-//    relocation array.
+//  0. If an LRU relocation is present, remap according to "chunk" in relocation array.
+//  1. Base on the size of slice, remap to a instance in the group.
+//  2. If target instance is full, request an LRU relocation and restart from 0.
+//  3. If no Balancer relocation is available, request one.
+//  4. Remap to smaller "Size" of instance between target instance and remapped instance according to "chunk" in
+//     relocation array.
 func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instance, MetaPostProcess, error) {
 	meta.mu.Lock()
 	defer meta.mu.Unlock()
@@ -193,6 +193,8 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 
 	// Check if a replacement decision has been made.
 	if !IsPlacementEmpty(placerMeta.swapMap) {
+		p.log.Debug("FindPlacement: %s@%d, swapMap: %v", meta.Key, chunkId, placerMeta.swapMap)
+
 		meta.Placement[chunkId] = placerMeta.swapMap[chunkId]
 		placerMeta.confirm(chunkId)
 		// Deleted by Tianium: 20221102
@@ -218,7 +220,7 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 
 			// We can add size to instance safely, the allocated space is reserved for this chunk even set operation may fail.
 			// This allow the client to reset the chunk without affecting the placement.
-			p.log.Debug("Lambda %d size updated: %d of %d (key:%d@%s, Δ:%d).",
+			p.log.Info("Lambda %d size updated: %d of %d (key:%d@%s, Δ:%d).",
 				assigned, size, instance.Meta.Capacity, chunkId, meta.Key, meta.ChunkSize)
 
 			// Deleted by Tianium: 20221102
@@ -278,12 +280,12 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 
 			// The size can be replaced safely, too.
 			size := instance.Meta.IncreaseSize(meta.ChunkSize - placerMeta.evicts.ChunkSize)
-			p.log.Debug("Lambda %d size updated: %d of %d (key:%d@%s, evict:%d@%s, Δ:%d).",
+			p.log.Info("Lambda %d size updated: %d of %d (key:%d@%s, evict:%d@%s, Δ:%d).",
 				tbe, size, instance.Meta.Capacity, i, meta.Key, i, placerMeta.evicts.Key,
 				meta.ChunkSize-placerMeta.evicts.ChunkSize)
 		} else {
 			size := instance.Meta.DecreaseSize(placerMeta.evicts.ChunkSize)
-			p.log.Debug("Lambda %d size updated: %d of %d (evict:%d@%s, Δ:%d).",
+			p.log.Info("Lambda %d size updated: %d of %d (evict:%d@%s, Δ:%d).",
 				tbe, size, instance.Meta.Capacity, i, placerMeta.evicts.Key,
 				-placerMeta.evicts.ChunkSize)
 		}
