@@ -40,7 +40,8 @@ if [ "$CODE" == "-code" ] ; then
         echo "Compiling lambda code..."
         GOOS=linux GOARCH=amd64 go build
         echo "Compressing file..."
-        zip $KEY $KEY
+        # zip $KEY $KEY
+        zip $KEY bootstrap
         echo "Putting code zip to s3"
         aws s3api put-object --bucket ${S3} --key $KEY.zip --body $KEY.zip
     fi
