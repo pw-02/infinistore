@@ -21,7 +21,7 @@ const FLAG_ENABLE_LOCAL_CACHE = 0x0004
 const LambdaFeatures = protocol.FLAG_ENABLE_WARMUP | protocol.FLAG_DISABLE_WAIT_FOR_COS
 
 const ProxyFeatures = FLAG_CLIENTSIDE_FIRSTD_OPTIMIZATION | FLAG_ENABLE_LOCAL_CACHE
-const LambdaLogLevel = logger.LOG_LEVEL_INFO // Set to logger.LOG_LEVEL_ALL to keep Lambda log level aligned with proxy log level.
+const LambdaLogLevel = logger.LOG_LEVEL_ALL // Set to logger.LOG_LEVEL_ALL to keep Lambda log level aligned with proxy log level.
 
 // LambdaPrefix Prefix of Lambda function, overridable with command line parameter -lambda-prefix.
 const LambdaPrefix = "CacheNodeA"
