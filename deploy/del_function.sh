@@ -1,9 +1,9 @@
 #!/bin/bash
 
 BASE=`pwd`/`dirname $0`
-DEPLOY_PREFIX="MemoryNode"
+DEPLOY_PREFIX="CacheNodeA"
 DEPLOY_FROM=0
-DEPLOY_CLUSTER=1000
+DEPLOY_CLUSTER=20
 ARG_PROMPT="[num_functions]"
 
 EMPH="\033[1;33m"
