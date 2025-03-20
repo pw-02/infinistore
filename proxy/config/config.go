@@ -17,30 +17,32 @@ const FLAG_CLIENTSIDE_FIRSTD_OPTIMIZATION = 0x0002
 // FLAG_ENABLE_LOCAL_CACHE enables local cache.
 const FLAG_ENABLE_LOCAL_CACHE = 0x0004
 
-const LambdaFeatures = protocol.FLAG_ENABLE_WARMUP | protocol.FLAG_ENABLE_PERSISTENT | protocol.FLAG_DISABLE_WAIT_FOR_COS
+// const LambdaFeatures = protocol.FLAG_ENABLE_WARMUP | protocol.FLAG_ENABLE_PERSISTENT | protocol.FLAG_DISABLE_WAIT_FOR_COS
+const LambdaFeatures = protocol.FLAG_ENABLE_WARMUP | protocol.FLAG_DISABLE_WAIT_FOR_COS
+
 const ProxyFeatures = FLAG_CLIENTSIDE_FIRSTD_OPTIMIZATION | FLAG_ENABLE_LOCAL_CACHE
 const LambdaLogLevel = logger.LOG_LEVEL_INFO // Set to logger.LOG_LEVEL_ALL to keep Lambda log level aligned with proxy log level.
 
 // LambdaPrefix Prefix of Lambda function, overridable with command line parameter -lambda-prefix.
-const LambdaPrefix = "Store1VPCNode"
+const LambdaPrefix = "CacheNodeA"
 
 // AWSRegion Region of AWS services.
-const AWSRegion = "us-east-1"
+const AWSRegion = "us-west-2"
 
 // LambdaMaxDeployments Number of Lambda function deployments available.
-const LambdaMaxDeployments = 1000
+const LambdaMaxDeployments = 1
 
 // Mode of cluster.
 const StaticCluster = "static"
 const WindowCluster = "window"
-const Cluster = WindowCluster
+const Cluster = StaticCluster
 
 // Size of a slice if the cluster implementation support. Client library use this value to initialize chunk placements.
 const SliceSize = 95
 
 // NumLambdaClusters Number of Lambda function deployments initiated on launching.
 // For window cluster, this must be at least D+P
-const NumLambdaClusters = 12
+const NumLambdaClusters = 1 //12
 
 // LambdaStoreName Obsoleted. Name of Lambda function for replica version.
 const LambdaStoreName = "LambdaStore"
@@ -53,10 +55,10 @@ const InstanceDegradeWarmTimeout = 5 * time.Minute
 
 // InstanceCapacity Capacity of deployed Lambda functions.
 // TODO: Detectable on invocation. Can be specified by option -funcap for now.
-const DefaultInstanceCapacity = 1536 * 1000000 // 1GB
+const DefaultInstanceCapacity = 128 * 1000000 // 1GB
 
 // InstanceOverhead Memory reserved for running program on Lambda functions.
-const InstanceOverhead = 200 * 1000000 // 200MB
+const InstanceOverhead = 100 * 1000000 // 200MB
 
 // Threshold Scaling out avg instance size threshold
 const Threshold = 0.9 // Don't set beyond 0.9
@@ -72,17 +74,17 @@ const ServerPublicIp = "" // Leave it empty if Lambda VPC is enabled.
 const RecoverRate = 40 * 1000000 // Not actually used.
 
 // BackupsPerInstance  Number of backup instances used for parallel recovery.
-const BackupsPerInstance = 20 // (InstanceCapacity - InstanceOverhead) / RecoverRate
+const BackupsPerInstance = 1 // (InstanceCapacity - InstanceOverhead) / RecoverRate
 
 // Each bucket's active duration
 const BucketDuration = 1 // min
 
 // Number of buckets that warmup every InstanceWarmTimeout
-const NumActiveBuckets = 6
+const NumActiveBuckets = 1
 
 // Number of buckets before expiring
 // Buckets beyond NumActiveBuckets but within ExpireBucketsNum will get degraded warmup: InstanceDegradeWarmTimeout
-const NumAvailableBuckets = 18
+const NumAvailableBuckets = 1
 
 // Async migrate control
 const ActiveReplica = 2 //min
