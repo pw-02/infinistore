@@ -3,17 +3,17 @@
 # Run `./create_function.sh -h` for available options.
 
 BASE=`pwd`/`dirname $0`
-DEPLOY_PREFIX="Store1VPCNode"
+DEPLOY_PREFIX="CacheNodeA"
 KEY="lambda"
 DEPLOY_FROM=0
-DEPLOY_CLUSTER=1000
+DEPLOY_CLUSTER=20
 DEPLOY_TO=$((DEPLOY_CLUSTER-1))
-DEPLOY_MEM=1536
+DEPLOY_MEM=128
 DEPLOY_VPC="-vpc"
 ARG_PROMPT="timeout"
 EXPECTING_ARGS=1
 
-S3="jzhang33.default"
+S3="sion-default"
 EMPH="\033[1;33m"
 RESET="\033[0m"
 
