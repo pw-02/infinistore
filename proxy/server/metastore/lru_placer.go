@@ -193,7 +193,7 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 
 	// Check if a replacement decision has been made.
 	if !IsPlacementEmpty(placerMeta.swapMap) {
-		p.log.Debug("FindPlacement: %s@%d, swapMap: %v", meta.Key, chunkId, placerMeta.swapMap)
+		p.log.Info("FindPlacement: %s@%d, swapMap: %v", meta.Key, chunkId, placerMeta.swapMap)
 
 		meta.Placement[chunkId] = placerMeta.swapMap[chunkId]
 		placerMeta.confirm(chunkId)
