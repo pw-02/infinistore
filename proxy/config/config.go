@@ -30,7 +30,7 @@ const LambdaPrefix = "CacheNodeA"
 const AWSRegion = "us-west-2"
 
 // LambdaMaxDeployments Number of Lambda function deployments available.
-const LambdaMaxDeployments = 1
+const LambdaMaxDeployments = 2
 
 // Mode of cluster.
 const StaticCluster = "static"
@@ -42,7 +42,7 @@ const SliceSize = 95
 
 // NumLambdaClusters Number of Lambda function deployments initiated on launching.
 // For window cluster, this must be at least D+P
-const NumLambdaClusters = 1 //12
+const NumLambdaClusters = 2 //12
 
 // LambdaStoreName Obsoleted. Name of Lambda function for replica version.
 const LambdaStoreName = "LambdaStore"
