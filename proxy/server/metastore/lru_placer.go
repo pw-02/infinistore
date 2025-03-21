@@ -154,7 +154,11 @@ func (p *LRUPlacer) Place(meta *Meta, chunkId int, cmd types.Command) (*lambdast
 	}
 
 	cmd.GetRequest().InsId = instance.Id()
+	p.log.Info("calling dispatch for %s@%d, instance: %d", meta.Key, chunkId, instance.Id())
 	err = instance.Dispatch(cmd)
+	if err != nil {
+		p.log.Error("dispatch failed for %s@%d, instance: %d, err: %v", meta.Key, chunkId, instance.Id(), err)
+	}
 	return instance, post, err
 }
 
