@@ -332,7 +332,7 @@ func (ins *Instance) DispatchWithOptions(cmd types.Command, opts int) error {
 	}
 
 	n, busy := ins.setBusy(cmd) // setBusy will fail if busy.
-	ins.log.Debug("Dispatching %v, %d queued, busy: %v", cmd, ins.numBusying(n), busy)
+	ins.log.Info("Dispatching %v, %d queued, busy: %v", cmd, ins.numBusying(n), busy)
 	if opts&DISPATCH_OPT_BUSY_CHECK > 0 && busy {
 		return ErrInstanceBusy
 	}
