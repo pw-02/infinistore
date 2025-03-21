@@ -191,7 +191,7 @@ func (p *Proxy) HandleSetChunk(w resp.ResponseWriter, c *resp.CommandStream) {
 		return
 	}
 
-	p.log.Debug("HandleSet %s(%d): %d@%s", reqId, dChunkId, dChunkId, key)
+	p.log.Info("HandleSet %s(%d): %d@%s", reqId, dChunkId, dChunkId, key)
 
 	// Start counting time.
 	collectEntry, _ := collector.CollectRequest(collector.LogRequestStart, nil, protocol.CMD_SET, reqId, chunkId, time.Now().UnixNano())
