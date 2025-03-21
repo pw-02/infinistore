@@ -184,7 +184,10 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 
 	// Initialize placerMeta if not.
 	if meta.placerMeta == nil {
+		p.log.Info("create new placerMeta for %s", meta.key)
 		meta.placerMeta = newLRUPlacerMeta(len(meta.Placement))
+		p.log.Info("len(meta.Placement) is %d", len(meta.Placement))
+
 	}
 	placerMeta := meta.placerMeta.(*LRUPlacerMeta)
 
