@@ -150,6 +150,7 @@ func (p *LRUPlacer) Insert(key string, newMeta *Meta) (*Meta, MetaPostProcess, e
 func (p *LRUPlacer) Place(meta *Meta, chunkId int, cmd types.Command) (*lambdastore.Instance, MetaPostProcess, error) {
 	instance, post, err := p.FindPlacement(meta, chunkId)
 	if err != nil {
+		p.log.Info("error on finding placement for %s@%d, err: %v", meta.Key, chunkId, err)
 		return instance, post, err
 	}
 
@@ -158,6 +159,8 @@ func (p *LRUPlacer) Place(meta *Meta, chunkId int, cmd types.Command) (*lambdast
 	err = instance.Dispatch(cmd)
 	if err != nil {
 		p.log.Error("dispatch failed for %s@%d, instance: %d, err: %v", meta.Key, chunkId, instance.Id(), err)
+	} else {
+		p.log.Info("dispatch success for %s@%d, instance: %d", meta.Key, chunkId, instance.Id())
 	}
 	return instance, post, err
 }
