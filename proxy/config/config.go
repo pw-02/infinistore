@@ -80,7 +80,7 @@ const BackupsPerInstance = 1 // (InstanceCapacity - InstanceOverhead) / RecoverR
 const BucketDuration = 1 // min
 
 // Number of buckets that warmup every InstanceWarmTimeout
-const NumActiveBuckets = 1
+const NumActiveBuckets = 2
 
 // Number of buckets before expiring
 // Buckets beyond NumActiveBuckets but within ExpireBucketsNum will get degraded warmup: InstanceDegradeWarmTimeout
