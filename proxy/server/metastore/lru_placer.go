@@ -204,11 +204,13 @@ func (p *LRUPlacer) FindPlacement(meta *Meta, chunkId int) (*lambdastore.Instanc
 		// No evicted/deleted object will be restored anymore.
 
 		// No size update is required, reserved on eviction.
+		p.log.Info("No size uodate required for %s@%d, swapMap: %v", meta.Key, chunkId, placerMeta.swapMap)
 		return p.cluster.Instance(meta.Placement[chunkId]), nil, nil
 	}
 
 	// assigned := meta.slice.GetIndex(lambdaId)
 	assigned := meta.Placement[chunkId]
+	p.log.Info("assigned is %d", assigned)
 	if meta.slice != nil {
 		assigned = meta.slice.GetIndex(meta.Placement[chunkId])
 	}
